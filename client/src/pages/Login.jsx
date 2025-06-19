@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { CameraAlt as CameraAltIcon } from "@mui/icons-material";
-import { VisuallyHiddenInput } from "../components/StylesComponents";
+import { VisuallyHiddenInput } from "../components/styles/StylesComponents";
 import { useFileHandler, useInputValidation } from "6pp";
 import { usernameValidator } from "../utils/validators";
 
@@ -26,9 +26,18 @@ const Login = () => {
 
   const avatar = useFileHandler("single")
 
+  const handleLogin = (e) => {
+    e.preventDefault();
+  };
+  const handleSignUp = (e) => {
+    e.preventDefault();
+  };
+
   return (
+    <div style={{ backgroundImage: "linear-gradient(rgb(255 255 209), rgb(249 159 159))",
+    }}>
     <Container
-      component={"main"}
+      component={"main"} 
       maxWidth="xs"
       sx={{
         height: "100vh",
@@ -54,6 +63,7 @@ const Login = () => {
                 width: "100%",
                 marginTop: "1rem",
               }}
+              onSubmit={handleLogin}
             >
               <TextField
                 required
@@ -111,6 +121,7 @@ const Login = () => {
                 width: "100%",
                 marginTop: "1rem",
               }}
+              onSubmit={handleSignUp}
             >
               <Stack position={"relative"} width={"10rem"} margin={"auto"}>
                 <Avatar
@@ -121,14 +132,6 @@ const Login = () => {
                   }}
                   src={avatar.preview}
                 />
-
-                {
-                avatar.error && (
-                    <Typography color="error" variant="caption">
-                        {avatar.error}
-                    </Typography>
-                )
-              }
                 <IconButton
                   sx={{
                     position: "absolute",
@@ -151,6 +154,18 @@ const Login = () => {
                   </>
                 </IconButton>
               </Stack>
+              {
+                avatar.error && (
+                    <Typography m={"1rem auto"}
+                    width={"fit-content"}
+                    dispplay={"block"}
+                    color="error" 
+                    variant="caption"
+                    >
+                        {avatar.error}
+                    </Typography>
+                )
+              }
               <TextField
                 required
                 fullWidth
@@ -227,6 +242,7 @@ const Login = () => {
         )}
       </Paper>
     </Container>
+  </div>
   );
 };
 
