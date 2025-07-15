@@ -2,6 +2,8 @@ import React from "react";
 import Header from "./Header";
 import Title from "../shared/Title";
 import { Grid, Box } from "@mui/material";
+import ChatList from "../../specific/ChatList";
+import { sampleChats } from "../../../constants/sampleData";
 
 const AppLayout = (WrappedComponent) => {
   return (props) => {
@@ -9,53 +11,69 @@ const AppLayout = (WrappedComponent) => {
       <Box minHeight="100vh" display="flex" flexDirection="column">
         <Title />
         <Header />
-        {/* Main content area */}
-        <Box flex="1 1 auto" minHeight={0} display="flex">
+        {/* Main content area - takes remaining space between header and footer */}
+        <Box 
+          flex="1 1 auto" 
+          display="flex" 
+          sx={{ 
+            minHeight: 0,
+            height: "calc(100vh - 8rem)" // Subtract header and footer heights
+          }}
+        >
           <Grid
             container
-            sx={{ flex: 1, height: "100%" }}
-            columns={12}
+            sx={{ 
+              flexGrow: 1, 
+              width: "100%",
+              height: "100%"
+            }}
+            spacing={0}
           >
             <Grid
-              item
-              xs={12}
-              md={4}
+              size={4}
               sx={{
-                borderRight: { md: "1px solid #ccc" },
+                borderRight: "1px solid #ddd",
                 bgcolor: "#f5f5f5",
                 height: "100%",
                 display: "flex",
+                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
+                minHeight: 0
               }}
             >
-              First
+             <ChatList chats={sampleChats} chatId={1} sx={{ color: "#1976d2", fontWeight: 600 }}/>
             </Grid>
+
+            {/* WrappedComponent (Home) Grid Item */}
             <Grid
-              item
-              xs={12}
-              md={4}
+              size={4}
               sx={{
                 bgcolor: "#fff",
                 height: "100%",
                 display: "flex",
+                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
+                minHeight: 0
               }}
             >
               <WrappedComponent {...props} />
             </Grid>
+
+            {/* Third Grid Item */}
             <Grid
-              item
-              xs={12}
-              md={4}
+              size={4}
               sx={{
-                borderLeft: { md: "1px solid #ccc" },
-                bgcolor: "rgba(0,0,0,0.05)",
+                borderLeft: "1px solid #ddd",
+                bgcolor: "#000000", // Black color for third grid
+                color: "#ffffff", // White text for visibility
                 height: "100%",
                 display: "flex",
+                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
+                minHeight: 0
               }}
             >
               Third
