@@ -3,8 +3,9 @@ import React from "react";
 import { Link } from "../StylesComponents";
 import { memo } from "react";
 import { sampleChats } from "../../../constants/sampleData";
+import AvatarCard from "./AvatarCard";
 
-const ChatItem = (
+const ChatItem = ({
   avatar = [],
   name,
   _id,
@@ -13,15 +14,15 @@ const ChatItem = (
   isOnline,
   newMessageAlert,
   index = 0,
-  handleDeleteChatOpen,
-) => {
+  handleDeleteChat,
+}) => {
   return (
     <Link
     sx={{
       padding: "0",
     }}
-      to={"/chat/${_id}"}
-      onContextMenu={(e) => handleDeleteChatOpen(e, _id, groupChat)}
+      to={`/chat/${_id}`}
+      onContextMenu={(e) => handleDeleteChat(e, _id, groupChat)}
     >
       <div
         style={{
@@ -35,6 +36,7 @@ const ChatItem = (
         }}
       >
         {/* Avatar Card */}
+        <AvatarCard avatar={avatar} />
         <Stack >
           <Typography>{name}</Typography>
           {newMessageAlert && (
