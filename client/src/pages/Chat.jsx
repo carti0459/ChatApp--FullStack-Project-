@@ -7,9 +7,18 @@ import {
   Send as SendIcon,
 } from "@mui/icons-material";
 import { InputBox } from "../components/styles/StylesComponents";
+import FileMenu from "../components/dialogs/FIleMenu";
+import { sampleMessages } from "../constants/sampleData";
+import MessageComponent from "../components/styles/shared/MessageComponent";
+
+const user = {
+  _id: "sdjksdlf",
+  name: "Karthik Nair",
+}
 
 const Chat = () => {
   const containerRef = useRef(null);
+
 
   return (
     <>
@@ -26,7 +35,9 @@ const Chat = () => {
           overflowY: "auto",
         }}
       >
-        {/* Messages Render */}
+        {sampleMessages.map((i) => (
+          <MessageComponent key={i._id} message={i} user={user} />
+        ))}
       </Stack>
       <form
         style={{
@@ -67,6 +78,7 @@ const Chat = () => {
           </IconButton>
         </Stack>
       </form>
+      {/*<FileMenu/> */}
     </>
   );
 };
