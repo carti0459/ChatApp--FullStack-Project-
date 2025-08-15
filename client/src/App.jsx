@@ -1,7 +1,9 @@
 import React, { lazy, Suspense } from "react";
+import { io } from "socket.io-client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectRoute from "./components/styles/auth/ProtectRoute";
 import { LayoutLoader } from "./components/styles/layout/Loaders";
+import { useEffect } from "react";
 
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
@@ -18,6 +20,20 @@ const ChatManagement = lazy(() => import("./pages/admin/ChatManagement"));
 let user = true;
 
 const App = () => {
+  const socket = io("http://localhost:3000");
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("connected", socket.id);
+    });
+    socket.on("welcome", (s) => {
+      console.log(s);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  },[]);
   return (
     <BrowserRouter>
       <Suspense fallback={<LayoutLoader/>}>
